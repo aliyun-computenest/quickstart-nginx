@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="计算巢是阿里云开放给企业应用服务商的服务管理平台。服务商能够在计算巢上发布私有化部署服务，为其客户提供云上软件一键部署的能力；同时也支持全托管模式的服务，赋能服务商托管其客户资源。">
+  <title>Nginx Community Edition Service Instance Deployment Document - Aliyun 计算巢</title>
+
+  <link rel="shortcut icon" href="../img/favicon.ico">
+
+  <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/pure-min.css">
+  <link rel="stylesheet" href="../css/theme.css">
+  
+
+  
+
+  
+  
+
+  
+    <script src="../search/main.js"></script>
+  
+
+  
+
+  <script src="../js/highlight.min.js"></script>
+  <script>hljs.highlightAll();</script>
+</head>
+
+<body>
+  <div class="container">
+    <div class="nav">
+      <div class="nav-inner">
+        <div class="logo">
+          <img src="./img/logo-2x.png">
+        </div>
+        <div class="nav-list">
+          <ul>
+          
+              <li><a href="#nginx-community-edition-service-instance-deployment-document">Nginx Community Edition Service Instance Deployment Document</a></li>
+              
+                  <li><a href="#overview">Overview</a></li>
+                  
+              
+                  <li><a href="#billing-description">Billing Description</a></li>
+                  
+              
+                  <li><a href="#deployment-architecture">Deployment Architecture</a></li>
+                  
+              
+                  <li><a href="#required-permissions-for-ram-users">Required Permissions for RAM Users</a></li>
+                  
+              
+                  <li><a href="#deployment-process">Deployment process</a></li>
+                  
+                      <li class="li-h3"><a href="#deployment-steps">Deployment Steps</a></li>
+                  
+                      <li class="li-h3"><a href="#deployment-parameter-description">Deployment Parameter Description</a></li>
+                  
+                      <li class="li-h3"><a href="#verification-results">Verification Results</a></li>
+                  
+                      <li class="li-h3"><a href="#using-nginx">Using Nginx</a></li>
+                  
+              
+          
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="content theme-github">
+      
+      <div class="content-inner">        
+        
+        <h1 id="nginx-community-edition-service-instance-deployment-document">Nginx Community Edition Service Instance Deployment Document</h1>
+<h2 id="overview">Overview</h2>
+<p>Nginx is a high performance HTTP and reverse proxy server. Nginx provides a community version of the service on the computing nest. You can quickly deploy Nginx services on the computing nest and implement O &amp; M monitoring without configuring your own cloud host, so that you can easily build your own applications based on Nginx. This article describes how to activate the Nginx community edition service on the computing nest, as well as the deployment process and usage instructions.</p>
+<h2 id="billing-description">Billing Description</h2>
+<p>The cost of Nginx Community Edition on computing nest mainly involves:</p>
+<p>-Selected vCPU and memory specifications
+-System disk capacity
+-Public network bandwidth</p>
+<p>Billing methods include:</p>
+<p>-Pay-as-you-go (hourly)
+-Annual and monthly packages</p>
+<p>The estimated cost is displayed in real time when you create an instance.</p>
+<h2 id="deployment-architecture">Deployment Architecture</h2>
+<p>Nginx Community Edition uses a stand-alone deployment architecture.</p>
+<h2 id="required-permissions-for-ram-users">Required Permissions for RAM Users</h2>
+<p>The Nginx service needs to access and create resources such as ECS and VPC. If you use a RAM user to create a service instance, you need to add the corresponding resource permissions to the account of the RAM user before creating the service instance. For detailed instructions on adding RAM permissions, see <a href="https://help.aliyun.com/document_detail/121945.html">Grant Permissions to RAM Users</a>. The required permissions are shown in the table below.</p>
+<table>
+<thead>
+<tr>
+<th>Permission policy name</th>
+<th>Comment</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>AliyunECSFullAccess</td>
+<td>Permissions to manage ECS instances</td>
+</tr>
+<tr>
+<td>AliyunVPCFullAccess</td>
+<td>Permissions to manage a VPC</td>
+</tr>
+<tr>
+<td>AliyunROSFullAccess</td>
+<td>Manage permissions for Resource Orchestration Service (ROS)</td>
+</tr>
+<tr>
+<td>AliyunComputeNestUserFullAccess</td>
+<td>Manage user-side permissions for the compute nest service (ComputeNest)</td>
+</tr>
+<tr>
+<td>AliyunCloudMonitorFullAccess</td>
+<td>Permissions to manage CloudMonitor</td>
+</tr>
+</tbody>
+</table>
+<h2 id="deployment-process">Deployment process</h2>
+<h3 id="deployment-steps">Deployment Steps</h3>
+<p>Click <a href="https://computenest.console.aliyun.com/user/cn-hangzhou/serviceInstanceCreate?ServiceId=service-393b398bccc1459e93fc">Deployment Link</a> to enter the service instance deployment page, and fill in the parameters according to the interface prompts to complete the deployment.</p>
+<h3 id="deployment-parameter-description">Deployment Parameter Description</h3>
+<p>During the process of creating a service instance, you need to configure the service instance information. The following section describes the input parameters of the Nginx Community Edition service instance.</p>
+<table>
+<thead>
+<tr>
+<th>Parameter Group</th>
+<th>Parameter Item</th>
+<th>Example</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Service Instance Name</td>
+<td></td>
+<td>test</td>
+<td>The name of the instance</td>
+</tr>
+<tr>
+<td>Region</td>
+<td></td>
+<td>China East 1 (Hangzhou)</td>
+<td>The region of the selected service instance. We recommend choosing the region closest to you for lower network latency.</td>
+</tr>
+<tr>
+<td>Availability Zone Configuration</td>
+<td>Deployment Region</td>
+<td>Availability Zone I</td>
+<td>Different availability zones within a region</td>
+</tr>
+<tr>
+<td>Payment Type Configuration</td>
+<td>Payment Type</td>
+<td>Pay-As-You-Go or Subscription</td>
+<td></td>
+</tr>
+<tr>
+<td>Select Existing Infrastructure Configuration</td>
+<td>VPC ID</td>
+<td>vpc-xxx</td>
+<td>Select the ID of the VPC.</td>
+</tr>
+<tr>
+<td>Select Existing Infrastructure Resources</td>
+<td>VSwitch ID</td>
+<td>vsw-xxx</td>
+<td>Select a VSwitch ID. If the switch cannot be found, try switching the region and availability zone.</td>
+</tr>
+<tr>
+<td>ECS instance configuration</td>
+<td>Instance type</td>
+<td>ecs.g7.large</td>
+<td>Instance type, which can be selected according to actual needs</td>
+</tr>
+<tr>
+<td>ECS Instance Configuration</td>
+<td>System Disk Space</td>
+<td>40</td>
+<td>System disk space can be selected based on actual requirements</td>
+</tr>
+<tr>
+<td>ECS Instance Configuration</td>
+<td>Instance Password</td>
+<td><strong><em>*</em></strong>*</td>
+<td>Set the instance password. The password must be 8 to 30 characters long and include at least three of the following: uppercase letters, lowercase letters, numbers, and special characters from the set: ()'~!@#$%^&amp;*-+={}[]:;'&lt;&gt;,.?/.</td>
+</tr>
+<tr>
+<td>ECS instance configuration</td>
+<td>Enable public IP address</td>
+<td>True</td>
+<td>Whether to enable public IP address</td>
+</tr>
+</tbody>
+</table>
+<p><img alt="1.jpg" src="../images-en/1.jpg" /></p>
+<h3 id="verification-results">Verification Results</h3>
+<ol>
+<li>View the service instance.
+After the service instance is created, the deployment will take approximately 2 minutes. After deployment is complete, you can see the corresponding service instances on the page.</li>
+</ol>
+<p><img alt="2.jpg" src="../images-en/2.jpg" /></p>
+<ol>
+<li>Access Nginx through the service instance.</li>
+</ol>
+<p><img alt="3.jpg" src="../images-en/3.jpg" />
+After entering the corresponding service instance, you can get the PublicEndpoint and PrivateEndpoint on the page.</p>
+<h3 id="using-nginx">Using Nginx</h3>
+<p>Please visit the Nginx website to learn how to use Nginx:<a href="https://docs.nginx.com/">Nginx usage document</a></p>
+        
+      </div>
+
+      <div class="copyrights">© 2009-2022 Aliyun.com 版权所有</div>
+    </div>
+  </div>
+  
+  <!--
+  MkDocs version      : 1.6.1
+  Docs Build Date UTC : 2026-03-23 08:22:49.816497+00:00
+  -->
+</body>
+</html>
